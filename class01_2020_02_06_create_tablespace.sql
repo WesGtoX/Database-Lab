@@ -1,10 +1,10 @@
 -- Criação de Tablespace
 -- Sintaxe
-CREATE tablespace "logical_name"
+CREATE TABLESPACE "logical_name"
 DATAFILE 'path\file_nome.dbf'
 SIZE [size]M
 
 -- Exemplo
-CREATE tablespace "2M2020_828507"
-DATAFILE 'C:\APP\ORACLE\ORADATA\GRAD\DATAFILE\TBLS_828507.dbf'
+CREATE TABLESPACE "2M2020_828507"
+DATAFILE 'C:\app\Wesley\product\18.0.0\oradata\XE\TBLS_828507.dbf'
 SIZE 10M;

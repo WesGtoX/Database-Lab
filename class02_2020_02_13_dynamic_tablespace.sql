@@ -17,7 +17,7 @@ AUTOEXTEND ON NEXT 1M MAXSIZE 100M;
 -- Acessar a tabela DBA_TABLESPACES | TABLESPACE SYSTEM
 
 -- Listar o nome dos TABLESPACEsdo banco de dados
-SELECT tablespace_name from DBA_TABLESPACES;
+SELECT TABLESPACE_NAME from DBA_TABLESPACES;
 
 -- Mostrar os atributos (estrutura da tabela DBA_TABLESPACES)
 DESC DBA_TABLESPACES;
@@ -27,11 +27,11 @@ DESC DBA_TABLESPACES;
 -- redimensionando o arquivo de dados
 ALTER DATABASE;
 
--- Sintaxe:
+-- Sintaxe
 ALTER DATABASE DATAFILE "caminho\nome_datafile"
 RESIZE novo_tamanho
 
--- Exemplo:
+-- Exemplo
 ALTER DATABASE DATAFILE "C:\APP\ORACLE\ORADATA\GRAD\DATAFILE\TBLS_828507.dbf"
 RESIZE 15M;
 
@@ -53,7 +53,7 @@ SIZE 5M;
 -- Excluir um TABLESPACE
 DROP TABLESPACE "nome_tablespace" [INCLUDING CONTENTS [AND | KEEP] DATAFILES] [CASCADE CONSTRAINTS];
 
--- Exemplo:
+-- Exemplo
 DROP TABLESPACE "2M_828507" INCLUDING CONTENTS AND DATAFILES;
 
 -- Desativar/ativar um TABLESPACE
@@ -63,11 +63,11 @@ ALTER TABLESPACE
 Sintaxe:
 ALTER TABLESPACE "nome_tablespace" [ONLINE | OFFLINE]
 
-Exemplo:
-Desativando um TABLESPACE
+-- Exemplo
+-- Desativando um TABLESPACE
 ALTER TABLESPACE "2M2020_828507" OFFLINE;
 
-SELECT tablespace_name, STATUS FROM DBA_TABLESPACES;
+SELECT TABLESPACE_NAME, STATUS FROM DBA_TABLESPACES;
 
 
 

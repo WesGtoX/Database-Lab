@@ -18,21 +18,21 @@ CREATE TABLE
 
 -- Sintaxe:
 CREATE TABLE "table_name" (
-  "attribute_name1" data_types_attribute1 [NULL | NOT NULL | UNIQUE],
-  "attribute_name2" data_types_attribute2 [NULL | NOT NULL | UNIQUE],
+  [attribute_name1] data_types_attribute1 [NULL | NOT NULL | UNIQUE],
+  [attribute_name2] data_types_attribute2 [NULL | NOT NULL | UNIQUE],
   ...
   CONSTRAINTS [PRIMARY KEY | FOREIGN KEY | CHECK]
 );
 
 -- Sintaxe básica para criação de constrains
-"NOME" TIPO [PRIMARY KEY | FOREIGN KEY | CHECK]
+[nome] TIPO [PRIMARY KEY | FOREIGN KEY | CHECK]
 
 -- Exemplo
-  CREATE TABLE "CLIENTE" (
-  "ID_CLIENTE" INTEGER,
-  "NOM_CLIENTE" VARCHAR2(40) NOT NULL,
-  "DTN_CLIENTE" DATE,
-  CONSTRAINT "PK_CLIENTE" PRIMARY KEY (ID_CLIENTE)
+CREATE TABLE "CLIENTE" (
+  id_cliente INTEGER,
+  nom_cliente VARCHAR2(40) NOT NULL,
+  dtn_cliente DATE,
+  CONSTRAINT pk_cliente PRIMARY KEY (id_cliente)
 );
 
 -- Tabelas do usuário USER_TABLES

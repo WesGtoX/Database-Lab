@@ -1,9 +1,9 @@
 ALTER TABLE
 Permite realizar alteração nas tabelas
 
-ADD - adicionar constraint ou atributo
-MODIFY - alterar um atributo
-DROP - excluir constraint ou atributo
+ADD     -- adicionar constraint ou atributo
+MODIFY  -- alterar um atributo
+DROP    -- excluir constraint ou atributo
 
 -- Inserir um novo atributo em uma tabela
 ALTER TABLE CLIENTE
