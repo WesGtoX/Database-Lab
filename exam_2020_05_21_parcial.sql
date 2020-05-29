@@ -11,6 +11,8 @@ CREATE TABLESPACE "VIAGEM828507"
 DATAFILE 'C:\app\Wesley\product\18.0.0\oradata\XE\viagem828507.dbf'
 SIZE 10M;
 
+COMMIT;
+
 SELECT TABLESPACE_NAME from DBA_TABLESPACES;
 
 
@@ -27,6 +29,8 @@ TEMPORARY TABLESPACE "TEMP"
 ACCOUNT UNLOCK
 PROFILE DEFAULT;
 
+COMMIT;
+
 SELECT USERNAME, DEFAULT_TABLESPACE, TEMPORARY_TABLESPACE 
 FROM DBA_USERS 
 WHERE USERNAME = '828507AVP';
@@ -35,6 +39,8 @@ WHERE USERNAME = '828507AVP';
 ----------
 -- 3. Elaborar um script para atribuir o direito de administrador de banco de dados (DBA) ao usuário criado anteriormente (0.50 ponto);
 GRANT DBA TO "828507AVP" WITH ADMIN OPTION;
+
+COMMIT;
 
 SELECT * FROM DBA_ROLE_PRIVS WHERE GRANTEE LIKE '828507AVP';
 SELECT * FROM DBA_SYS_PRIVS WHERE GRANTEE = '828507AVP';
@@ -65,7 +71,7 @@ CREATE TABLE TELEFONE(
     num_telefone NUMBER,
     ddd_telefone NUMBER,
     CONSTRAINT pk_telefone PRIMARY KEY (cod_cliente),  -- Esta chave primária, é um identificador único da tabela, ela será utilizada também como referência em outra tabela caso necessário.
-    CONSTRAINT fk__telefonecliente FOREIGN KEY (cod_cliente) REFERENCES CLIENTE  -- Esta chave estrangeira faz referencia a um cliente já existente, é uma forma de referenciar duas tabelas informando que o cliente tem um ou mais telefones.
+    CONSTRAINT fk_telefone_cliente FOREIGN KEY (cod_cliente) REFERENCES CLIENTE  -- Esta chave estrangeira faz referencia a um cliente já existente, é uma forma de referenciar duas tabelas informando que o cliente tem um ou mais telefones.
 );
 
 CREATE TABLE CIDADE(
@@ -85,7 +91,8 @@ CREATE TABLE HOTEL(
     cod_hotel INTEGER,          -- (PK)
     id_classific_hotel INTEGER, -- (FK)
     nom_hotel VARCHAR(30),
-    CONSTRAINT pk_hotel PRIMARY KEY (cod_hotel)  -- Esta chave primária, é um identificador único da tabela, ela será utilizada também como referência em outra tabela caso necessário.
+    CONSTRAINT pk_hotel PRIMARY KEY (cod_hotel),  -- Esta chave primária, é um identificador único da tabela, ela será utilizada também como referência em outra tabela caso necessário.
+    CONSTRAINT fk_pacote_hotel FOREIGN KEY (id_classific_hotel) REFERENCES HOTEL  -- Esta chave estrangeira faz referencia a um hotel já existente, é uma forma de referenciar duas tabelas.
 );
 
 CREATE TABLE PACOTE(
@@ -114,6 +121,8 @@ CREATE TABLE CONTRATO_VIAGEM(
     CONSTRAINT fk_contrato_viagem_cliente FOREIGN KEY (cod_cliente) REFERENCES CLIENTE,  -- Esta chave estrangeira faz referencia a um cliente já existente, é uma forma de referenciar duas tabelas.
     CONSTRAINT fk_contrato_viagem_agente FOREIGN KEY (cod_agente) REFERENCES AGENTE  -- Esta chave estrangeira faz referencia a um agente já existente, é uma forma de referenciar duas tabelas.
 );
+
+COMMIT;
 
 
 ----------
@@ -152,6 +161,8 @@ NOCYCLE;
 -- Nestas sequencias, quando utilizadas no registro de algum elemento na tabela, iniciará em 1, será incrementado por 1 e seu valor mínimo é 1, 
 -- e máximo determinado de acordo com os tipos de tabela, variando de 99 ou 9999, e com uma sequencia não cíclica.
 
+COMMIT;
+
 
 ----------
 -- 6. Elaborar script para adicionar na tabela CLIENTE os atributos DTN_CLIENTE DATE e EMAIL_CLIENTE VARCHAR2(50) (0.5 ponto).
@@ -161,6 +172,8 @@ ADD email_cliente VARCHAR2(50);
 ALTER TABLE CLIENTE 
 ADD dtn_cliente DATE; -- (JÁ É CRIADO NA CRIAÇÃO DAS TABELAS)
 -- Estes comandos alteram uma tabela específica, adicionando um novo atributo a ela.
+
+COMMIT;
 
 
 ----------
@@ -178,11 +191,13 @@ VALUES (
     'wesley.wes.oliveira@gmail.com'
 );
 
+COMMIT;
+
 
 -- 8. Mostrar quantos hotéis são da classificação “5 estrelas” (1.0 ponto).
 SELECT CH.dsc_classificacao HOTEIS, COUNT(H.cod_hotel) QTD 
 FROM CLASSIFIC_HOTEL CH, HOTEL H WHERE H.id_classific_hotel = CH.id_classific_hotel
-GROUP BY CH.dsc_classificacao HAVING CH.dsc_classificacao = '5 estrela';
+GROUP BY CH.dsc_classificacao HAVING CH.dsc_classificacao = '5 estrelas';
 -- Neste comando foi utilizado alguns aliases como por exemplo:
 -- - HOTEIS e QTD: são aliases de coluna para que seja melhor identificado o que que é cada coluna do resultado da consulta.
 -- - CH e H: é um aliase da tabela CLASSIFIC_HOTEL e da HOTEL, respectivamente, para que na refenciação dos atributos do comando, sejá mais organizado e facilite o entendimento.
