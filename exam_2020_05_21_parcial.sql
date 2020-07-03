@@ -67,10 +67,11 @@ CREATE TABLE CLIENTE(
 );
 
 CREATE TABLE TELEFONE(
-    cod_cliente NUMBER,    -- (FK)(PK)
-    num_telefone NUMBER,
-    ddd_telefone NUMBER,
+    cod_cliente NUMBER,     -- (FK)(PK)
+    num_telefone NUMBER,    -- (PK)
+    ddd_telefone NUMBER,    -- (PK)
     CONSTRAINT pk_telefone PRIMARY KEY (cod_cliente),  -- Esta chave primária, é um identificador único da tabela, ela será utilizada também como referência em outra tabela caso necessário.
+    -- CONSTRAINT pk_telefone PRIMARY KEY (cod_cliente, num_telefone, ddd_telefone) (CORRETO)
     CONSTRAINT fk_telefone_cliente FOREIGN KEY (cod_cliente) REFERENCES CLIENTE  -- Esta chave estrangeira faz referencia a um cliente já existente, é uma forma de referenciar duas tabelas informando que o cliente tem um ou mais telefones.
 );
 
@@ -93,6 +94,7 @@ CREATE TABLE HOTEL(
     nom_hotel VARCHAR(30),
     CONSTRAINT pk_hotel PRIMARY KEY (cod_hotel),  -- Esta chave primária, é um identificador único da tabela, ela será utilizada também como referência em outra tabela caso necessário.
     CONSTRAINT fk_pacote_hotel FOREIGN KEY (id_classific_hotel) REFERENCES HOTEL  -- Esta chave estrangeira faz referencia a um hotel já existente, é uma forma de referenciar duas tabelas.
+    -- CONSTRAINT fk_pacote_hotel FOREIGN KEY (id_classific_hotel) REFERENCES CLASSIFIC_HOTEL (CORRETO)
 );
 
 CREATE TABLE PACOTE(
